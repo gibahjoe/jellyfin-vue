@@ -56,7 +56,7 @@
           >
             <mark-played-button :item="item" dark />
             <like-button v-if="canPlay(item)" :item="item" dark />
-            <item-menu :item="item" dark />
+            <item-menu :item="item" dark  tabindex="-1"/>
           </div>
         </div>
       </div>
@@ -84,15 +84,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapStores } from 'pinia';
-import { BaseItemDto, ImageType } from '@jellyfin/client-axios';
-import {
-  CardShapes,
-  getShapeFromItemType,
-  getItemDetailsLink,
-  canPlay
-} from '~/utils/items';
-import { taskManagerStore } from '~/store';
+import {mapStores} from 'pinia';
+import {BaseItemDto, ImageType} from '@jellyfin/client-axios';
+import {canPlay, CardShapes, getItemDetailsLink, getShapeFromItemType} from '~/utils/items';
+import {taskManagerStore} from '~/store';
 
 export default Vue.extend({
   props: {

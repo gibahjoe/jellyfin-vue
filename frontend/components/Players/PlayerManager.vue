@@ -155,7 +155,7 @@
                           class="mx-1"
                           @click="playbackManager.setPreviousTrack"
                         >
-                          <v-icon> mdi-skip-previous </v-icon>
+                          <v-icon> mdi-skip-previous</v-icon>
                         </v-btn>
                         <v-btn
                           icon
@@ -244,10 +244,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapStores } from 'pinia';
+import {mapStores} from 'pinia';
 import screenfull from 'screenfull';
-import { playbackManagerStore } from '~/store';
-import { PlaybackStatus } from '~/store/playbackManager';
+import {playbackManagerStore} from '~/store';
+import {PlaybackStatus} from '~/store/playbackManager';
 
 export default Vue.extend({
   data() {
@@ -380,34 +380,55 @@ export default Vue.extend({
             focusEl?.className === '';
         }
 
-        switch (e.key) {
-          case 'Spacebar':
-          case ' ':
-            if (spaceEnabled) {
+        // Adds support for lgtv. This may be the same for other tvs but I am not sure
+        if (this.$browser.isWebOS()) {
+          switch (e.keyCode) {
+            case 415:
+            case 19:
+            case 13:
               this.playbackManager.playPause();
-            }
+              break;
+            case 417:
+            case 39:
+              this.playbackManager.skipForward();
+              break;
+            case 412:
+            case 37:
+              this.playbackManager.skipBackward();
+              break;
+          }
+        } else {
+          switch (e.key) {
+            case 'Spacebar':
+            case ' ':
+              if (spaceEnabled) {
+                this.playbackManager.playPause();
+              }
 
-            break;
-          case 'k':
-            this.playbackManager.playPause();
-            break;
-          case 'ArrowRight':
-          case 'l':
-            this.playbackManager.skipForward();
-            break;
-          case 'ArrowLeft':
-          case 'j':
-            this.playbackManager.skipBackward();
-            break;
-          case 'f':
-            if (this.playbackManager.getCurrentlyPlayingMediaType === 'Video') {
-              this.toggleFullScreen();
-            }
+              break;
+            case 'k':
+              this.playbackManager.playPause();
+              break;
+            case 'ArrowRight':
+            case 'l':
+              this.playbackManager.skipForward();
+              break;
+            case 'ArrowLeft':
+            case 'j':
+              this.playbackManager.skipBackward();
+              break;
+            case 'f':
+              if (
+                this.playbackManager.getCurrentlyPlayingMediaType === 'Video'
+              ) {
+                this.toggleFullScreen();
+              }
 
-            break;
-          case 'm':
-            this.playbackManager.toggleMute();
-            break;
+              break;
+            case 'm':
+              this.playbackManager.toggleMute();
+              break;
+          }
         }
       } else {
         switch (e.key) {

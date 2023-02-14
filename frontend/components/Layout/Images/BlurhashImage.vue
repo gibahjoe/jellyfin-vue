@@ -1,14 +1,14 @@
 <template>
   <div ref="imageElement">
     <div v-if="!error">
-      <blurhash-canvas
-        v-if="hash"
-        :hash="hash"
-        :width="width"
-        :height="height"
-        :punch="punch"
-        class="absolute"
-      />
+<!--      <blurhash-canvas-->
+<!--        v-if="hash"-->
+<!--        :hash="hash"-->
+<!--        :width="width"-->
+<!--        :height="height"-->
+<!--        :punch="punch"-->
+<!--        class="absolute"-->
+<!--      />-->
       <v-fade-transition>
         <img
           v-show="!loading"
@@ -31,9 +31,9 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { BaseItemDto, ImageType } from '@jellyfin/client-axios';
-import { getBlurhash, getImageInfo } from '~/utils/images';
-import { getItemIcon } from '~/utils/items';
+import {BaseItemDto, ImageType} from '@jellyfin/client-axios';
+import {getBlurhash, getImageInfo} from '~/utils/images';
+import {getItemIcon} from '~/utils/items';
 
 export default Vue.extend({
   props: {

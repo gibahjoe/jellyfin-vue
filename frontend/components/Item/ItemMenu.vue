@@ -1,10 +1,11 @@
 <template>
-  <div v-if="options.length > 0">
+  <div v-if="options.length > 0" tabindex="-1">
     <v-fade-transition>
       <v-menu
         v-model="show"
         absolute
         close-on-click
+        tabindex="-1"
         close-on-content-click
         :z-index="zIndex"
         :position-x="positionX"
@@ -59,16 +60,11 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapStores } from 'pinia';
-import { BaseItemDto } from '@jellyfin/client-axios';
-import {
-  authStore,
-  playbackManagerStore,
-  snackbarStore,
-  taskManagerStore
-} from '~/store';
-import { TaskType, RunningTask } from '~/store/taskManager';
-import { canResume } from '~/utils/items';
+import {mapStores} from 'pinia';
+import {BaseItemDto} from '@jellyfin/client-axios';
+import {authStore, playbackManagerStore, snackbarStore, taskManagerStore} from '~/store';
+import {RunningTask, TaskType} from '~/store/taskManager';
+import {canResume} from '~/utils/items';
 
 type MenuOption = {
   title: string;

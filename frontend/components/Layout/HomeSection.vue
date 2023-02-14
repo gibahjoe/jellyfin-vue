@@ -1,6 +1,7 @@
 <template>
   <swiper-section
-    :title="
+v-kbd-trap.roving
+                     :title="
       section.libraryName === undefined
         ? $t(section.name)
         : $t(section.name, { libraryName: section.libraryName })
@@ -12,10 +13,10 @@
 </template>
 
 <script lang="ts">
-import { BaseItemDto } from '@jellyfin/client-axios';
+import {BaseItemDto} from '@jellyfin/client-axios';
 import Vue from 'vue';
-import { mapStores } from 'pinia';
-import { HomeSection, homeSectionStore } from '~/store';
+import {mapStores} from 'pinia';
+import {HomeSection, homeSectionStore} from '~/store';
 
 export default Vue.extend({
   props: {

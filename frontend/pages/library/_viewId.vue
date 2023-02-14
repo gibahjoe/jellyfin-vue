@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div   v-kbd-trap.roving>
     <v-app-bar dense flat>
       <span class="text-h6 hidden-sm-and-down">
         {{ collectionInfo.Name }}
@@ -51,11 +51,11 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapStores } from 'pinia';
-import { BaseItemDto } from '@jellyfin/client-axios';
-import { Context } from '@nuxt/types';
-import { isValidMD5, validLibraryTypes } from '~/utils/items';
-import { authStore, snackbarStore, pageStore } from '~/store';
+import {mapStores} from 'pinia';
+import {BaseItemDto} from '@jellyfin/client-axios';
+import {Context} from '@nuxt/types';
+import {isValidMD5, validLibraryTypes} from '~/utils/items';
+import {authStore, pageStore, snackbarStore} from '~/store';
 
 export default Vue.extend({
   validate(ctx: Context) {

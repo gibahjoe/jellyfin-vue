@@ -3,18 +3,22 @@
 .page-enter-active,
 .layout-enter-active {
   animation: enter-page 0.2s;
+  -webkit-animation: enter-page 0.2s;
 }
 
 .page-leave-active,
 .layout-leave-active {
   animation: leave-page 0.2s;
+  -webkit-animation: leave-page 0.2s;
 }
 
 @media (prefers-reduced-motion) {
   .page-enter-active,
   .layout-enter-active {
     transition: none !important;
+    -webkit-transition: none !important;
     animation: none !important;
+    -webkit-animation: none !important;
   }
 }
 

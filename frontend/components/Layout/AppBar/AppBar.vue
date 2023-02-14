@@ -22,7 +22,7 @@
       </template>
     </app-bar-button-layout>
     <v-spacer />
-    <search-field />
+    <search-field tabindex="-1"/>
     <v-spacer />
     <app-bar-button-layout v-if="$nuxt.isOffline" color="red">
       <template #icon>
@@ -68,8 +68,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapStores } from 'pinia';
-import { pageStore, clientSettingsStore } from '~/store';
+import {mapStores} from 'pinia';
+import {clientSettingsStore, pageStore} from '~/store';
 
 export default Vue.extend({
   computed: {

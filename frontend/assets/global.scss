@@ -155,3 +155,11 @@ body {
 .overflow-hidden {
   overflow: hidden;
 }
+.card-margin > a.card-box {
+  outline: none;
+}
+
+.card-margin:focus-within {
+  border: var(--v-primary-base) solid 5px;
+  border-radius: 5px;
+}

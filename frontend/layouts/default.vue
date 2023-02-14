@@ -1,11 +1,11 @@
 <template>
-  <v-app>
-    <backdrop />
+  <v-app  v-kbd-trap.roving>
+<!--    <backdrop />-->
     <navigation-drawer />
     <app-bar />
     <v-main>
-      <div class="pa-s">
-        <nuxt />
+      <div class="pa-s"  v-kbd-trap.roving>
+        <nuxt   v-kbd-trap.roving/>
       </div>
     </v-main>
     <audio-controls />
@@ -17,8 +17,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapStores } from 'pinia';
-import { pageStore } from '~/store';
+import {mapStores} from 'pinia';
+import {pageStore} from '~/store';
 
 export default Vue.extend({
   computed: {

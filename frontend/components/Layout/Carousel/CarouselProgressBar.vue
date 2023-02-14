@@ -169,6 +169,7 @@ export default Vue.extend({
 .progress {
   height: 2px;
   transition: height 0.25s;
+  -webkit-transition: height 0.25s;
   flex-grow: 1;
   border-radius: 4px;
   margin: 0 3px;
@@ -187,9 +188,13 @@ export default Vue.extend({
   animation-timing-function: linear;
   animation-delay: 0s;
   animation-fill-mode: forwards;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-delay: 0s;
+  -webkit-animation-fill-mode: forwards;
 }
 
 .progress.active {
+  --webkit-animation-name: Loader;
   animation-name: Loader;
 }
 
@@ -199,6 +204,7 @@ export default Vue.extend({
 
 .progress.paused {
   animation-play-state: paused;
+  -webkit-animation-play-state: paused;
 }
 
 @keyframes Loader {

@@ -10,7 +10,7 @@
         {{ $t('homeHeader.items.recentlyAdded') }}
       </template>
     </items-carousel>
-    <v-container class="sections-after-header">
+    <v-container class="sections-after-header" >
       <v-row
         v-for="(homeSection, index) in homeSections"
         :key="`homeSection-${index}`"
@@ -23,17 +23,11 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapStores } from 'pinia';
+import {mapStores} from 'pinia';
 import pickBy from 'lodash/pickBy';
-import { BaseItemDto, ImageType, ItemFields } from '@jellyfin/client-axios';
-import { CardShapes, getShapeFromCollectionType } from '~/utils/items';
-import {
-  clientSettingsStore,
-  pageStore,
-  userViewsStore,
-  HomeSection,
-  authStore
-} from '~/store';
+import {BaseItemDto, ImageType, ItemFields} from '@jellyfin/client-axios';
+import {CardShapes, getShapeFromCollectionType} from '~/utils/items';
+import {authStore, clientSettingsStore, HomeSection, pageStore, userViewsStore} from '~/store';
 
 const VALID_SECTIONS = ['resume', 'resumeaudio', 'upnext', 'latestmedia'];
 
