@@ -1,7 +1,6 @@
 <template>
   <swiper-section
-v-kbd-trap.roving
-                     :title="
+    :title="
       section.libraryName === undefined
         ? $t(section.name)
         : $t(section.name, { libraryName: section.libraryName })

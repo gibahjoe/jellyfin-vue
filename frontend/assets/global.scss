@@ -155,11 +155,31 @@ body {
 .overflow-hidden {
   overflow: hidden;
 }
-.card-margin > a.card-box {
+
+.card-margin:focus-within,
+.card-margin:focus {
+  box-shadow: 0 0 0 5px var(--v-primary-base);
+  border-radius: 5px;
   outline: none;
+  background-color: var(--v-primary-base);
+}
+button.primary:focus,
+button.primary:focus-visible {
+  box-shadow: 0 0 0 5px white !important;
+  outline: none !important;
 }
 
-.card-margin:focus-within {
-  border: var(--v-primary-base) solid 5px;
-  border-radius: 5px;
+.card-title:focus-visible,
+.card-title:focus {
+  outline: none;
+  text-decoration: underline;
 }
+.card-subtitle:focus-visible,
+.card-subtitle:focus {
+  outline: none;
+  text-decoration: underline;
+}
+
+//[data-focusable="true"] {
+//  outline: none;
+//}

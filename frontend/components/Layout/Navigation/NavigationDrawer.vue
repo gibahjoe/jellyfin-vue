@@ -16,6 +16,7 @@
       <v-list-item
         v-for="item in items"
         :key="item.Id"
+        v-focus
         :to="item.to"
         router
         exact
@@ -31,6 +32,7 @@
       <v-list-item
         v-for="library in userViews.getNavigationDrawerItems"
         :key="library.Id"
+        v-focus
         :to="library.to"
         router
         tabindex="0"
@@ -53,28 +55,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import {mapStores} from 'pinia';
-import {VueKeyboardTrapDirectiveFactory} from '@pdanpdan/vue-keyboard-trap';
 import {pageStore, userViewsStore} from '~/store';
-
-const KbdTrap = VueKeyboardTrapDirectiveFactory({
-  focusableSelector: ['a'].join(','),
-  rovingSkipSelector: [
-    'a.card-title',
-    'a.card-subtitle',
-    'input:not([disabled]):not([type="button"]):not([type="checkbox"]):not([type="file"]):not([type="image"]):not([type="radio"]):not([type="reset"]):not([type="submit"])',
-    'select:not([disabled])',
-    'select:not([disabled]) *',
-    'textarea:not([disabled])',
-    '[contenteditable]:not([contenteditable="false"])',
-    '[contenteditable]:not([contenteditable="false"]) *'
-  ].join(','),
-  gridSkipSelector: [
-    'a.card-title',
-    'a.card-subtitle',
-    ':not([disabled])',
-    ':not([tabindex^="-"])'
-  ].join('')
-}).directive;
 
 interface LayoutButton {
   icon: string;
@@ -83,7 +64,6 @@ interface LayoutButton {
 }
 
 export default Vue.extend({
-  directives: { KbdTrap },
   computed: {
     ...mapStores(userViewsStore, pageStore),
     items(): LayoutButton[] {

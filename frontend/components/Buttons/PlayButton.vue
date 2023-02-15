@@ -2,6 +2,7 @@
   <div class="d-inline-flex">
     <v-btn
       v-if="canPlay(item) && (fab || iconOnly)"
+      v-focus
       :fab="fab"
       :text="iconOnly"
       :color="iconOnly ? null : 'primary'"
@@ -14,6 +15,7 @@
     </v-btn>
     <v-btn
       v-else-if="!fab"
+      v-focus
       :disabled="disabled || !canPlay(item)"
       :loading="loading"
       class="mr-2"
@@ -35,12 +37,12 @@
 </template>
 
 <script lang="ts">
-import { BaseItemDto } from '@jellyfin/client-axios';
+import {BaseItemDto} from '@jellyfin/client-axios';
 import Vue from 'vue';
-import { mapStores } from 'pinia';
-import { playbackManagerStore } from '~/store';
-import { canResume, canPlay } from '~/utils/items';
-import { ticksToMs } from '~/utils/time';
+import {mapStores} from 'pinia';
+import {playbackManagerStore} from '~/store';
+import {canPlay, canResume} from '~/utils/items';
+import {ticksToMs} from '~/utils/time';
 
 export default Vue.extend({
   props: {

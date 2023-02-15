@@ -1,5 +1,5 @@
 <template>
-  <div   v-kbd-trap.roving>
+  <div >
     <v-app-bar dense flat>
       <span class="text-h6 hidden-sm-and-down">
         {{ collectionInfo.Name }}

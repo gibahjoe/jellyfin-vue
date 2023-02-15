@@ -1,5 +1,9 @@
 <template>
-  <div :class="{ 'card-margin': margin }">
+  <div
+    v-focus="link"
+    :class="{ 'card-margin': margin }"
+    @keyup.enter="cardClicked($event)"
+  >
     <component
       :is="link ? 'nuxt-link' : 'div'"
       :to="link ? getItemDetailsLink(item) : null"
@@ -56,7 +60,7 @@
           >
             <mark-played-button :item="item" dark />
             <like-button v-if="canPlay(item)" :item="item" dark />
-            <item-menu :item="item" dark  tabindex="-1"/>
+            <item-menu :item="item" dark tabindex="-1" />
           </div>
         </div>
       </div>
@@ -64,6 +68,7 @@
     <div v-if="text" class="card-text">
       <nuxt-link
         class="link d-block card-title mt-1 text-truncate"
+        tabindex="0"
         :to="cardTitleLink"
       >
         {{ cardTitle }}
@@ -244,6 +249,15 @@ export default Vue.extend({
   methods: {
     isFinePointer(): boolean {
       return window.matchMedia('(pointer:fine)').matches;
+    },
+    cardClicked(e: Event) {
+      if (this.link) {
+        const itemLink = getItemDetailsLink(this.item);
+
+        if (itemLink) {
+          this.$router.push(itemLink);
+        }
+      }
     },
     getItemDetailsLink,
     canPlay

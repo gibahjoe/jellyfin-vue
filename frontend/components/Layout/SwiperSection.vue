@@ -1,6 +1,6 @@
 <template>
   <div :class="`swiper-section-${uuid}`" style="width: 100%">
-    <skeleton-home-section v-if="loading" :card-shape="shape"  v-kbd-trap.roving/>
+    <skeleton-home-section v-if="loading" :card-shape="shape" />
     <v-col v-show="items && items.length > 0" class="swiper-section">
       <div class="d-flex ma-2">
         <h1
@@ -18,8 +18,8 @@
         </v-btn>
       </div>
 
-      <swiper v-kbd-trap.roving class="swiper" :options="swiperOptions">
-        <swiper-slide v-for="item in items" :key="item.Id">
+      <swiper class="swiper" :options="swiperOptions">
+        <swiper-slide v-for="item in items" :key="item.Id" >
           <card
             :shape="shape"
             :item="item"
@@ -40,31 +40,9 @@ import Vue from 'vue';
 import {SwiperOptions} from 'swiper';
 import {v4 as uuidv4} from 'uuid';
 import {BaseItemDto} from '@jellyfin/client-axios';
-import {VueKeyboardTrapDirectiveFactory} from '@pdanpdan/vue-keyboard-trap';
 import {CardShapes, getShapeFromItemType} from '~/utils/items';
 
-const KbdTrap = VueKeyboardTrapDirectiveFactory({
-  focusableSelector: ['.card-margin > a'].join(','),
-  rovingSkipSelector: [
-    'a.card-title',
-    'a.card-subtitle',
-    'input:not([disabled]):not([type="button"]):not([type="checkbox"]):not([type="file"]):not([type="image"]):not([type="radio"]):not([type="reset"]):not([type="submit"])',
-    'select:not([disabled])',
-    'select:not([disabled]) *',
-    'textarea:not([disabled])',
-    '[contenteditable]:not([contenteditable="false"])',
-    '[contenteditable]:not([contenteditable="false"]) *'
-  ].join(','),
-  gridSkipSelector: [
-    'a.card-title',
-    'a.card-subtitle',
-    ':not([disabled])',
-    ':not([tabindex^="-"])'
-  ].join('')
-}).directive;
-
 export default Vue.extend({
-  directives: { KbdTrap },
   props: {
     loading: {
       type: Boolean,
@@ -144,14 +122,5 @@ export default Vue.extend({
 
 .swiper-section .header-white-mode::before {
   background-color: #{map-get($material-light, 'text-color')};
-}
-
-.card-margin > a.card-box {
-  outline: none;
-}
-
-.card-margin:focus-within {
-  border: var(--v-primary-base) solid 5px;
-  border-radius: 5px;
 }
 </style>

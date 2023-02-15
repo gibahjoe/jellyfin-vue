@@ -373,6 +373,9 @@ export default Vue.extend({
 
         let spaceEnabled = false;
 
+        // Some keys are 'unidentified' on LGtv.
+        const key = e.key == 'Unidentified' ? `${e.keyCode}` : e.key;
+
         if (e.key === 'Spacebar' || e.key === ' ') {
           spaceEnabled =
             focusEl?.classList.contains('v-dialog__content') ||
@@ -380,55 +383,42 @@ export default Vue.extend({
             focusEl?.className === '';
         }
 
-        // Adds support for lgtv. This may be the same for other tvs but I am not sure
-        if (this.$browser.isWebOS()) {
-          switch (e.keyCode) {
-            case 415:
-            case 19:
-            case 13:
+        // Adds support for remote
+        switch (key) {
+          case 'Spacebar':
+          case ' ':
+            if (spaceEnabled) {
               this.playbackManager.playPause();
-              break;
-            case 417:
-            case 39:
-              this.playbackManager.skipForward();
-              break;
-            case 412:
-            case 37:
-              this.playbackManager.skipBackward();
-              break;
-          }
-        } else {
-          switch (e.key) {
-            case 'Spacebar':
-            case ' ':
-              if (spaceEnabled) {
-                this.playbackManager.playPause();
-              }
+            }
 
-              break;
-            case 'k':
-              this.playbackManager.playPause();
-              break;
-            case 'ArrowRight':
-            case 'l':
-              this.playbackManager.skipForward();
-              break;
-            case 'ArrowLeft':
-            case 'j':
-              this.playbackManager.skipBackward();
-              break;
-            case 'f':
-              if (
-                this.playbackManager.getCurrentlyPlayingMediaType === 'Video'
-              ) {
-                this.toggleFullScreen();
-              }
+            break;
+          case 'k':
+          case '415':
+          case '19':
+          case '13':
+            this.playbackManager.playPause();
+            break;
+          case 'ArrowRight':
+          case 'l':
+          case '417':
+          case '39':
+            this.playbackManager.skipForward();
+            break;
+          case 'ArrowLeft':
+          case 'j':
+          case '412':
+          case '37':
+            this.playbackManager.skipBackward();
+            break;
+          case 'f':
+            if (this.playbackManager.getCurrentlyPlayingMediaType === 'Video') {
+              this.toggleFullScreen();
+            }
 
-              break;
-            case 'm':
-              this.playbackManager.toggleMute();
-              break;
-          }
+            break;
+          case 'm':
+            this.playbackManager.toggleMute();
+            break;
         }
       } else {
         switch (e.key) {

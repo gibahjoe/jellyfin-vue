@@ -1,48 +1,61 @@
 <template>
   <div>
     <v-tabs v-model="currentTab" class="mb-3" background-color="transparent">
-      <v-tab v-for="season in seasons" :key="season.Id">
+      <v-tab v-for="season in seasons" :key="season.Id" v-focus>
         {{ season.Name }}
       </v-tab>
     </v-tabs>
     <v-tabs-items v-model="currentTab" class="transparent">
       <v-tab-item v-for="season in seasons" :key="season.Id">
-        <v-list two-line color="transparent">
-          <v-list-item
-            v-for="episode in seasonEpisodes[season.Id]"
-            :key="episode.Id"
-            nuxt
-            :to="getItemDetailsLink(episode)"
-            class="flex-column flex-md-row"
-          >
-            <v-list-item-avatar tile width="20em" height="12em">
-              <blurhash-image
-                v-if="episode.ImageTags && episode.ImageTags.Primary"
-                :item="episode"
-                :alt="episode.Name"
-              />
-              <watched-indicator v-if="episode.UserData.Played" />
-            </v-list-item-avatar>
-            <v-list-item-content>
-              <v-list-item-title class="text-wrap">
-                {{ episode.IndexNumber }}. {{ episode.Name }}
-              </v-list-item-title>
-              <v-list-item-subtitle class="text-wrap">
-                {{ episode.Overview }}
-              </v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list>
+        <DynamicScroller
+          :items="seasonEpisodes[season.Id]"
+          :key-field="'Id'"
+          :min-item-size="350"
+          class="list-container"
+        >
+          <template #default="{ item, index, active }">
+            <DynamicScrollerItem
+              :item="item"
+              :active="active"
+              :data-index="index"
+            >
+              <v-list-item
+                :key="item.Id"
+                v-focus
+                class="flex-column flex-md-row"
+                nuxt
+                :to="getItemDetailsLink(item)"
+              >
+                <v-list-item-avatar tile width="20em" height="12em">
+                  <blurhash-image
+                    v-if="item.ImageTags && item.ImageTags.Primary"
+                    :item="item"
+                    :alt="item.Name"
+                  />
+                  <watched-indicator v-if="item.UserData.Played" />
+                </v-list-item-avatar>
+                <v-list-item-content>
+                  <v-list-item-title class="text-wrap">
+                    {{ item.IndexNumber }}. {{ item.Name }}
+                  </v-list-item-title>
+                  <v-list-item-subtitle class="text-wrap">
+                    {{ item.Overview }}
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+            </DynamicScrollerItem>
+          </template>
+        </DynamicScroller>
       </v-tab-item>
     </v-tabs-items>
   </div>
 </template>
 
 <script lang="ts">
-import { BaseItemDto, ItemFields } from '@jellyfin/client-axios';
+import {BaseItemDto, ItemFields} from '@jellyfin/client-axios';
 import Vue from 'vue';
-import { authStore } from '~/store';
-import { getItemDetailsLink } from '~/utils/items';
+import {authStore} from '~/store';
+import {getItemDetailsLink} from '~/utils/items';
 
 interface TvShowItem {
   /**

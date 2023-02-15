@@ -1,11 +1,11 @@
 <template>
-  <v-app  v-kbd-trap.roving>
-<!--    <backdrop />-->
+  <v-app v-focus-section:app>
+    <!--    <backdrop />-->
     <navigation-drawer />
     <app-bar />
     <v-main>
-      <div class="pa-s"  v-kbd-trap.roving>
-        <nuxt   v-kbd-trap.roving/>
+      <div class="pa-s">
+        <nuxt />
       </div>
     </v-main>
     <audio-controls />
