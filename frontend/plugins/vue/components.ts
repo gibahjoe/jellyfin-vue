@@ -1,8 +1,8 @@
 import Vue from 'vue';
-import {ValidationObserver, ValidationProvider} from 'vee-validate';
+import { ValidationObserver, ValidationProvider } from 'vee-validate';
 import draggable from 'vuedraggable';
 // @ts-expect-error - target typing doesn't exist as we declared it in params.
-import {DynamicScroller, DynamicScrollerItem} from 'vue-virtual-scroller';
+import { DynamicScroller, DynamicScrollerItem } from 'vue-virtual-scroller';
 import 'vue-virtual-scroller/dist/vue-virtual-scroller.css';
 import VueAwesomeSwiper from 'vue-awesome-swiper';
 import Swiper from 'swiper';
