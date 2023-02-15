@@ -16,6 +16,7 @@
       <v-list-item
         v-for="item in items"
         :key="item.Id"
+        v-focus
         :to="item.to"
         router
         exact
@@ -31,6 +32,7 @@
       <v-list-item
         v-for="library in userViews.getNavigationDrawerItems"
         :key="library.Id"
+        v-focus
         :to="library.to"
         router
         exact
@@ -51,8 +53,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapStores } from 'pinia';
-import { userViewsStore, pageStore } from '~/store';
+import {mapStores} from 'pinia';
+import {pageStore, userViewsStore} from '~/store';
 
 interface LayoutButton {
   icon: string;

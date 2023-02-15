@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-tabs v-model="currentTab" class="mb-3" background-color="transparent">
-      <v-tab v-for="season in seasons" :key="season.Id">
+      <v-tab v-for="season in seasons" :key="season.Id" v-focus>
         {{ season.Name }}
       </v-tab>
     </v-tabs>
@@ -39,10 +39,10 @@
 </template>
 
 <script lang="ts">
-import { BaseItemDto, ItemFields } from '@jellyfin/client-axios';
+import {BaseItemDto, ItemFields} from '@jellyfin/client-axios';
 import Vue from 'vue';
-import { authStore } from '~/store';
-import { getItemDetailsLink } from '~/utils/items';
+import {authStore} from '~/store';
+import {getItemDetailsLink} from '~/utils/items';
 
 interface TvShowItem {
   /**

@@ -244,10 +244,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapStores } from 'pinia';
+import {mapStores} from 'pinia';
 import screenfull from 'screenfull';
-import { playbackManagerStore } from '~/store';
-import { PlaybackStatus } from '~/store/playbackManager';
+import {playbackManagerStore} from '~/store';
+import {PlaybackStatus} from '~/store/playbackManager';
 
 export default Vue.extend({
   data() {
@@ -368,10 +368,15 @@ export default Vue.extend({
       this.playbackManager.stop();
     },
     handleKeyPress(e: KeyboardEvent): void {
+      console.log(e);
       if (!this.playbackManager.isMinimized) {
         const focusEl = document.activeElement;
 
         let spaceEnabled = false;
+
+        // Adds support for remote
+        // Some keys are 'Unidentified' on LGtv.
+        const key = e.key == 'Unidentified' ? `${e.keyCode}` : e.key;
 
         if (e.key === 'Spacebar' || e.key === ' ') {
           spaceEnabled =
@@ -380,7 +385,7 @@ export default Vue.extend({
             focusEl?.className === '';
         }
 
-        switch (e.key) {
+        switch (key) {
           case 'Spacebar':
           case ' ':
             if (spaceEnabled) {
@@ -389,14 +394,22 @@ export default Vue.extend({
 
             break;
           case 'k':
+          case 'Enter':
+          case '415':
+          case '19':
+          case '13':
             this.playbackManager.playPause();
             break;
           case 'ArrowRight':
           case 'l':
+          case '417':
+          case '39':
             this.playbackManager.skipForward();
             break;
           case 'ArrowLeft':
           case 'j':
+          case '412':
+          case '37':
             this.playbackManager.skipBackward();
             break;
           case 'f':

@@ -155,3 +155,17 @@ body {
 .overflow-hidden {
   overflow: hidden;
 }
+
+.card-margin:focus-within,
+.card-margin:focus {
+  box-shadow: 0 0 0 5px var(--v-primary-base);
+  border-radius: 5px;
+  outline: none;
+  background-color: var(--v-primary-base);
+}
+button.primary:focus,
+button.primary:focus-visible {
+  box-shadow: 0 0 0 5px white !important;
+  outline: none !important;
+}
+

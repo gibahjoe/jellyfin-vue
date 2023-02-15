@@ -1,5 +1,9 @@
 <template>
-  <div :class="{ 'card-margin': margin }">
+  <div
+    v-focus="link"
+    :class="{ 'card-margin': margin }"
+    @keyup.enter="cardClicked($event)"
+  >
     <component
       :is="link ? 'nuxt-link' : 'div'"
       :to="link ? getItemDetailsLink(item) : null"
@@ -84,15 +88,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapStores } from 'pinia';
-import { BaseItemDto, ImageType } from '@jellyfin/client-axios';
-import {
-  CardShapes,
-  getShapeFromItemType,
-  getItemDetailsLink,
-  canPlay
-} from '~/utils/items';
-import { taskManagerStore } from '~/store';
+import {mapStores} from 'pinia';
+import {BaseItemDto, ImageType} from '@jellyfin/client-axios';
+import {canPlay, CardShapes, getItemDetailsLink, getShapeFromItemType} from '~/utils/items';
+import {taskManagerStore} from '~/store';
 
 export default Vue.extend({
   props: {
@@ -249,6 +248,15 @@ export default Vue.extend({
   methods: {
     isFinePointer(): boolean {
       return window.matchMedia('(pointer:fine)').matches;
+    },
+    cardClicked(e: Event) {
+      if (this.link) {
+        const itemLink = getItemDetailsLink(this.item);
+
+        if (itemLink) {
+          this.$router.push(itemLink);
+        }
+      }
     },
     getItemDetailsLink,
     canPlay

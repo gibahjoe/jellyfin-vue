@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app v-focus-section:app>
     <backdrop />
     <navigation-drawer />
     <app-bar />
@@ -17,8 +17,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapStores } from 'pinia';
-import { pageStore } from '~/store';
+import {mapStores} from 'pinia';
+import {pageStore} from '~/store';
 
 export default Vue.extend({
   computed: {
