@@ -244,10 +244,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {mapStores} from 'pinia';
+import { mapStores } from 'pinia';
 import screenfull from 'screenfull';
-import {playbackManagerStore} from '~/store';
-import {PlaybackStatus} from '~/store/playbackManager';
+import { playbackManagerStore } from '~/store';
+import { PlaybackStatus } from '~/store/playbackManager';
 
 export default Vue.extend({
   data() {
@@ -368,7 +368,6 @@ export default Vue.extend({
       this.playbackManager.stop();
     },
     handleKeyPress(e: KeyboardEvent): void {
-      console.log(e);
       if (!this.playbackManager.isMinimized) {
         const focusEl = document.activeElement;
 
