@@ -81,9 +81,10 @@
           <v-fade-transition>
             <v-overlay
               v-show="
-                !playbackManager.isMinimized &&
-                showFullScreenOverlay &&
-                !isUpNextVisible
+                (!playbackManager.isMinimized &&
+                  showFullScreenOverlay &&
+                  !isUpNextVisible) ||
+                intro
               "
               color="transparent"
               absolute
@@ -92,22 +93,42 @@
                 class="d-flex flex-column justify-space-between align-center player-overlay"
               >
                 <div class="osd-top pt-s pl-s pr-s">
-                  <div class="d-flex align-center py-2 px-4">
-                    <div class="d-flex">
-                      <v-btn icon @click="stopPlayback">
-                        <v-icon>mdi-close</v-icon>
-                      </v-btn>
-                      <v-btn icon @click="playbackManager.toggleMinimized">
-                        <v-icon>mdi-chevron-down</v-icon>
-                      </v-btn>
-                    </div>
-                    <div class="d-flex ml-auto">
-                      <cast-button />
+                  <div
+                    v-show="
+                      !playbackManager.isMinimized &&
+                      showFullScreenOverlay &&
+                      !isUpNextVisible
+                    "
+                  >
+                    <div class="d-flex align-center py-2 px-4">
+                      <div class="d-flex">
+                        <v-btn icon @click="stopPlayback">
+                          <v-icon>mdi-close</v-icon>
+                        </v-btn>
+                        <v-btn icon @click="playbackManager.toggleMinimized">
+                          <v-icon>mdi-chevron-down</v-icon>
+                        </v-btn>
+                      </div>
+                      <div class="d-flex ml-auto">
+                        <cast-button />
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div class="osd-bottom pb-s pl-s pr-s">
-                  <div class="pa-4">
+                  <div v-show="intro" class="pa-4">
+                    <v-fade-transition>
+                      <skip-intro-button v-if="intro" :intro="intro" />
+                    </v-fade-transition>
+                  </div>
+                  <div
+                    v-show="
+                      !playbackManager.isMinimized &&
+                      showFullScreenOverlay &&
+                      !isUpNextVisible
+                    "
+                    class="pa-4"
+                  >
                     <time-slider />
                     <div
                       class="controls-wrapper d-flex align-stretch justify-space-between"
@@ -155,7 +176,7 @@
                           class="mx-1"
                           @click="playbackManager.setPreviousTrack"
                         >
-                          <v-icon> mdi-skip-previous </v-icon>
+                          <v-icon> mdi-skip-previous</v-icon>
                         </v-btn>
                         <v-btn
                           icon
@@ -248,6 +269,7 @@ import { mapStores } from 'pinia';
 import screenfull from 'screenfull';
 import { playbackManagerStore } from '~/store';
 import { PlaybackStatus } from '~/store/playbackManager';
+import { IntroSkipperResponse } from '~/plugins/nuxt/apiPlugin';
 
 export default Vue.extend({
   data() {
@@ -258,7 +280,8 @@ export default Vue.extend({
       keepOpen: false,
       playbackData: false,
       isUpNextVisible: false,
-      stretchVideo: true
+      stretchVideo: true,
+      intro: null as IntroSkipperResponse | null
     };
   },
   computed: {
@@ -292,6 +315,17 @@ export default Vue.extend({
             window.addEventListener('keyup', this.handleKeyPress);
             window.addEventListener('click', this.handleVideoClick);
             window.addEventListener('dblclick', this.handleVideoDoubleClick);
+          }
+
+          if (this.playbackManager?.getCurrentItem?.Type === 'Episode') {
+            this.$axios
+              .get(
+                `/Episode/${this.playbackManager?.getCurrentItem?.Id}/IntroTimestamps`
+              )
+              .then((value) => {
+                this.intro = value.data;
+              })
+              .catch((reason) => console.log(reason));
           }
 
           break;
