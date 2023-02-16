@@ -169,17 +169,3 @@ button.primary:focus-visible {
   outline: none !important;
 }
 
-.card-title:focus-visible,
-.card-title:focus {
-  outline: none;
-  text-decoration: underline;
-}
-.card-subtitle:focus-visible,
-.card-subtitle:focus {
-  outline: none;
-  text-decoration: underline;
-}
-
-//[data-focusable="true"] {
-//  outline: none;
-//}

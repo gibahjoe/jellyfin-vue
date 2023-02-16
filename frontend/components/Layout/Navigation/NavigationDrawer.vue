@@ -54,8 +54,8 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {mapStores} from 'pinia';
-import {pageStore, userViewsStore} from '~/store';
+import { mapStores } from 'pinia';
+import { pageStore, userViewsStore } from '~/store';
 
 interface LayoutButton {
   icon: string;

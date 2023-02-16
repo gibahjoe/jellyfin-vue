@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import {ValidationObserver, ValidationProvider} from 'vee-validate';
+import { ValidationObserver, ValidationProvider } from 'vee-validate';
 import draggable from 'vuedraggable';
 // @ts-expect-error - target typing doesn't exist as we declared it in params.
 import {DynamicScroller, DynamicScrollerItem} from 'vue-virtual-scroller';
@@ -8,8 +8,7 @@ import VueAwesomeSwiper from 'vue-awesome-swiper';
 import Swiper from 'swiper';
 import 'swiper/css/swiper.css';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
+// @ts-expect-error - target typing doesn't exist in npm
 import vjsn from 'vue-js-spatial-navigation';
 
 declare module 'vue/types/vue' {
@@ -30,8 +29,8 @@ const config = {
   restrict: 'self-first',
   tabIndexIgnoreList:
     'a, input, select, textarea, button, iframe, [contentEditable=true]',
-  navigableFilter: (e: HTMLElement) => {
-    if (e?.parentElement?.parentElement?.classList.contains('card-overlay')) {
+  navigableFilter: (e: HTMLElement): boolean => {
+    if (e?.parentElement?.parentElement?.classList?.contains('card-overlay')) {
       return false;
     }
 
