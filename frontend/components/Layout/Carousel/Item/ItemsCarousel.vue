@@ -1,5 +1,9 @@
 <template>
-  <carousel progress-bar :slides="items.length" @onSlideChange="onSlideChange">
+  <carousel
+    :progress-bar="!$browser.isWebOS()"
+    :slides="items.length"
+    @onSlideChange="onSlideChange"
+  >
     <template #slides>
       <swiper-slide v-for="item in items" :key="item.Id">
         <div class="slide-backdrop" data-swiper-parallax="-100">
@@ -132,7 +136,9 @@ export default Vue.extend({
       }
     },
     onSlideChange(index: number): void {
-      this.updateBackdrop(index);
+      if (!this.$browser.isWebOS()) {
+        this.updateBackdrop(index);
+      }
     },
     getItemDetailsLink
   }

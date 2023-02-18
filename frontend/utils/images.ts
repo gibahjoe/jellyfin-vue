@@ -370,12 +370,12 @@ export function getImageInfo(
     };
 
     if (width) {
-      width = Math.round(width * ratio);
+      width = Math.round((width/2) * ratio);
       params.maxWidth = width.toString();
     }
 
     if (height) {
-      height = Math.round(height * ratio);
+      height = Math.round((height/2) * ratio);
       params.maxHeight = height.toString();
     }
 
