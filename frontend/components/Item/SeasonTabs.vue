@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-tabs v-model="currentTab" class="mb-3" background-color="transparent">
-      <v-tab v-for="season in seasons" :key="season.Id">
+      <v-tab v-for="season in seasons" :key="season.Id" v-focus>
         {{ season.Name }}
       </v-tab>
     </v-tabs>

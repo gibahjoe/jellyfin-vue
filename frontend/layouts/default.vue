@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app v-focus-section:app>
     <backdrop />
     <navigation-drawer />
     <app-bar />
