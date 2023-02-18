@@ -529,7 +529,6 @@ export default Vue.extend({
 </style>
 
 <style lang="scss" scoped>
-@import '~vuetify/src/styles/styles.sass';
 .playback-data-dialog {
   position: absolute;
   z-index: 999;

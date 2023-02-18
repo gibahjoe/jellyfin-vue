@@ -1,5 +1,5 @@
 <template>
-  <v-slide-x-transition>
+  <v-slide-y-reverse-transition>
     <div
       v-if="show"
       class="d-flex flex-row justify-center skip-intro-button-container"
@@ -21,7 +21,7 @@
         </v-btn>
       </div>
     </div>
-  </v-slide-x-transition>
+  </v-slide-y-reverse-transition>
 </template>
 
 <script lang="ts">
