@@ -81,10 +81,9 @@
           <v-fade-transition>
             <v-overlay
               v-show="
-                (!playbackManager.isMinimized &&
-                  showFullScreenOverlay &&
-                  !isUpNextVisible) ||
-                intro
+                !playbackManager.isMinimized &&
+                showFullScreenOverlay &&
+                !isUpNextVisible
               "
               color="transparent"
               absolute
@@ -93,42 +92,22 @@
                 class="d-flex flex-column justify-space-between align-center player-overlay"
               >
                 <div class="osd-top pt-s pl-s pr-s">
-                  <div
-                    v-show="
-                      !playbackManager.isMinimized &&
-                      showFullScreenOverlay &&
-                      !isUpNextVisible
-                    "
-                  >
-                    <div class="d-flex align-center py-2 px-4">
-                      <div class="d-flex">
-                        <v-btn icon @click="stopPlayback">
-                          <v-icon>mdi-close</v-icon>
-                        </v-btn>
-                        <v-btn icon @click="playbackManager.toggleMinimized">
-                          <v-icon>mdi-chevron-down</v-icon>
-                        </v-btn>
-                      </div>
-                      <div class="d-flex ml-auto">
-                        <cast-button />
-                      </div>
+                  <div class="d-flex align-center py-2 px-4">
+                    <div class="d-flex">
+                      <v-btn icon @click="stopPlayback">
+                        <v-icon>mdi-close</v-icon>
+                      </v-btn>
+                      <v-btn icon @click="playbackManager.toggleMinimized">
+                        <v-icon>mdi-chevron-down</v-icon>
+                      </v-btn>
+                    </div>
+                    <div class="d-flex ml-auto">
+                      <cast-button />
                     </div>
                   </div>
                 </div>
                 <div class="osd-bottom pb-s pl-s pr-s">
-                  <div v-show="intro" class="pa-4">
-                    <v-fade-transition>
-                      <skip-intro-button v-if="intro" :intro="intro" />
-                    </v-fade-transition>
-                  </div>
-                  <div
-                    v-show="
-                      !playbackManager.isMinimized &&
-                      showFullScreenOverlay &&
-                      !isUpNextVisible
-                    "
-                    class="pa-4"
-                  >
+                  <div class="pa-4">
                     <time-slider />
                     <div
                       class="controls-wrapper d-flex align-stretch justify-space-between"
@@ -176,7 +155,7 @@
                           class="mx-1"
                           @click="playbackManager.setPreviousTrack"
                         >
-                          <v-icon> mdi-skip-previous</v-icon>
+                          <v-icon> mdi-skip-previous </v-icon>
                         </v-btn>
                         <v-btn
                           icon
@@ -267,7 +246,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {mapStores} from 'pinia';
+import { mapStores } from 'pinia';
 import screenfull from 'screenfull';
 import { playbackManagerStore } from '~/store';
 import { PlaybackStatus } from '~/store/playbackManager';
@@ -320,17 +299,6 @@ export default Vue.extend({
             window.addEventListener('keyup', this.handleKeyPress);
             window.addEventListener('click', this.handleVideoClick);
             window.addEventListener('dblclick', this.handleVideoDoubleClick);
-          }
-
-          if (this.playbackManager?.getCurrentItem?.Type === 'Episode') {
-            this.$axios
-              .get(
-                `/Episode/${this.playbackManager?.getCurrentItem?.Id}/IntroTimestamps`
-              )
-              .then((value) => {
-                this.intro = value.data;
-              })
-              .catch((reason) => console.log(reason));
           }
 
           break;
@@ -412,10 +380,6 @@ export default Vue.extend({
 
         let spaceEnabled = false;
 
-        // Adds support for remote
-        // Some keys are 'Unidentified' on LGtv.
-        const key = e.key == 'Unidentified' ? `${e.keyCode}` : e.key;
-
         if (e.key === 'Spacebar' || e.key === ' ') {
           spaceEnabled =
             focusEl?.classList.contains('v-dialog__content') ||
@@ -423,7 +387,7 @@ export default Vue.extend({
             focusEl?.className === '';
         }
 
-        switch (key) {
+        switch (e.key) {
           case 'Spacebar':
           case ' ':
             if (spaceEnabled) {
@@ -432,22 +396,14 @@ export default Vue.extend({
 
             break;
           case 'k':
-          case 'Enter':
-          case '415':
-          case '19':
-          case '13':
             this.playbackManager.playPause();
             break;
           case 'ArrowRight':
           case 'l':
-          case '417':
-          case '39':
             this.playbackManager.skipForward();
             break;
           case 'ArrowLeft':
           case 'j':
-          case '412':
-          case '37':
             this.playbackManager.skipBackward();
             break;
           case 'f':
