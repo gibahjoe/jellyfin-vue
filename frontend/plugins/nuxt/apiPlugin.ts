@@ -67,6 +67,7 @@ import {
   VideosApi,
   YearsApi
 } from '@jellyfin/client-axios';
+
 export interface IntroSkipperResponse {
   EpisodeId: string;
   Valid: boolean;
@@ -75,6 +76,7 @@ export interface IntroSkipperResponse {
   ShowSkipPromptAt: number;
   HideSkipPromptAt: number;
 }
+
 interface ApiPlugin {
   activityLog: ActivityLogApi;
   apiKey: ApiKeyApi;
