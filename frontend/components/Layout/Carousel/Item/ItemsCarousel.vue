@@ -1,6 +1,6 @@
 <template>
   <carousel
-    :progress-bar="!$browser.isWebOS()"
+    progress-bar
     :slides="items.length"
     @onSlideChange="onSlideChange"
   >
@@ -136,9 +136,7 @@ export default Vue.extend({
       }
     },
     onSlideChange(index: number): void {
-      if (!this.$browser.isWebOS()) {
         this.updateBackdrop(index);
-      }
     },
     getItemDetailsLink
   }
