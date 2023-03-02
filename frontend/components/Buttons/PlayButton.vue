@@ -37,12 +37,12 @@
 </template>
 
 <script lang="ts">
-import {BaseItemDto} from '@jellyfin/client-axios';
+import { BaseItemDto } from '@jellyfin/client-axios';
 import Vue from 'vue';
-import {mapStores} from 'pinia';
-import {playbackManagerStore} from '~/store';
-import {canPlay, canResume} from '~/utils/items';
-import {ticksToMs} from '~/utils/time';
+import { mapStores } from 'pinia';
+import { playbackManagerStore } from '~/store';
+import { canPlay, canResume } from '~/utils/items';
+import { ticksToMs } from '~/utils/time';
 
 export default Vue.extend({
   props: {

@@ -2,7 +2,7 @@
   <div
     v-focus="link"
     :class="{ 'card-margin': margin }"
-    @keyup.enter="cardClicked($event)"
+    @keyup.enter="cardClicked()"
   >
     <component
       :is="link ? 'nuxt-link' : 'div'"
@@ -250,7 +250,7 @@ export default Vue.extend({
     isFinePointer(): boolean {
       return window.matchMedia('(pointer:fine)').matches;
     },
-    cardClicked(e: Event) {
+    cardClicked() {
       if (this.link) {
         const itemLink = getItemDetailsLink(this.item);
 

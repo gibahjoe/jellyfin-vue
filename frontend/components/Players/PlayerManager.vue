@@ -384,6 +384,10 @@ export default Vue.extend({
 
         let spaceEnabled = false;
 
+        // Adds support for remote
+        // Some keys are 'Unidentified' on LGtv.
+        const key = e.key === 'Unidentified' ? `${e.keyCode}` : e.key;
+
         if (e.key === 'Spacebar' || e.key === ' ') {
           spaceEnabled =
             focusEl?.classList.contains('v-dialog__content') ||
@@ -391,7 +395,7 @@ export default Vue.extend({
             focusEl?.className === '';
         }
 
-        switch (e.key) {
+        switch (key) {
           case 'Spacebar':
           case ' ':
             if (spaceEnabled) {
@@ -400,14 +404,22 @@ export default Vue.extend({
 
             break;
           case 'k':
+          case 'Enter':
+          case '415':
+          case '19':
+          case '13':
             this.playbackManager.playPause();
             break;
           case 'ArrowRight':
           case 'l':
+          case '417':
+          case '39':
             this.playbackManager.skipForward();
             break;
           case 'ArrowLeft':
           case 'j':
+          case '412':
+          case '37':
             this.playbackManager.skipBackward();
             break;
           case 'f':
