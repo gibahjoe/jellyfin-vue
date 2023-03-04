@@ -352,6 +352,7 @@ export default Vue.extend({
     rgba(0, 0, 0, 0.5) 50%,
     rgba(0, 0, 0, 0.7) 100%
   );
+  -webkit-transition: opacity 0.2s;
   transition: opacity 0.2s;
   top: 0;
   left: 0;

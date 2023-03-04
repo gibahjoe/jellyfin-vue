@@ -133,6 +133,7 @@ export default Vue.extend({
 
       this.bars.forEach((el: HTMLElement) => {
         el.style.animationDuration = newDuration;
+        el.style.setProperty('-webkit-animation-duration', newDuration);
       });
     }
   }
@@ -162,6 +163,7 @@ export default Vue.extend({
 
 .progress-bar:hover .expand.progress {
   height: 10px !important;
+  -webkit-transition: height 0.25s;
   transition: height 0.25s;
   border-radius: 2px;
 }
@@ -194,7 +196,7 @@ export default Vue.extend({
 }
 
 .progress.active {
-  --webkit-animation-name: Loader;
+  -webkit-animation-name: Loader;
   animation-name: Loader;
 }
 
