@@ -123,6 +123,7 @@ declare module '@vue/runtime-core' {
     SkeletonCard: typeof import('./../../src/components/Skeletons/SkeletonCard.vue')['default']
     SkeletonHomeSection: typeof import('./../../src/components/Skeletons/SkeletonHomeSection.vue')['default']
     SkeletonItemGrid: typeof import('./../../src/components/Skeletons/SkeletonItemGrid.vue')['default']
+    SkipIntroButton: typeof import('./../../src/components/Buttons/SkipIntroButton.vue')['default']
     Snackbar: typeof import('./../../src/components/System/Snackbar.vue')['default']
     SortButton: typeof import('./../../src/components/Buttons/SortButton.vue')['default']
     SubtitleSelectionButton: typeof import('./../../src/components/Buttons/SubtitleSelectionButton.vue')['default']

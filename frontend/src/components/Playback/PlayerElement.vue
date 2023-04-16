@@ -20,29 +20,79 @@
           :srclang="sub.srcLang"
           :src="sub.src" />
       </component>
+      <skip-intro-button
+        v-if="intro"
+        :intro="intro"
+        :large="playerElement.isFullscreenVideoPlayer" />
     </Teleport>
   </template>
 </template>
 
 <script setup lang="ts">
-import { computed, watch, nextTick } from 'vue';
+import { computed, watch, nextTick, onMounted, onUnmounted } from 'vue';
 import { isNil } from 'lodash-es';
 import { useI18n } from 'vue-i18n';
 import Hls, { ErrorData } from 'hls.js';
+import { AxiosRequestConfig } from 'axios';
+import { useRemote, useSnackbar } from '@/composables';
 import {
   playbackManagerStore,
   playerElementStore,
   mediaElementRef
 } from '@/store';
 import { getImageInfo } from '@/utils/images';
-import { useSnackbar } from '@/composables';
 /**
  * Playback won't work in development until https://github.com/vuejs/core/pull/7593 is fixed
  */
 
 const playbackManager = playbackManagerStore();
 const playerElement = playerElementStore();
+const remote = useRemote();
 const { t } = useI18n();
+
+// INTRO SKIPPER PATCH
+interface IntroSkipperResponse {
+  EpisodeId: string;
+  Valid: boolean;
+  IntroStart: number;
+  IntroEnd: number;
+  ShowSkipPromptAt: number;
+  HideSkipPromptAt: number;
+}
+
+onMounted(() => {
+  console.log('PlayerElement Mounted');
+});
+onUnmounted(() => {
+  console.log('PlayerElement UNMounted');
+});
+
+let intro = null as IntroSkipperResponse | null;
+
+watch(
+  () => playbackManager.currentItem,
+  () => {
+    fetchIntroTimestamps();
+  }
+);
+
+let fetchIntroTimestamps = async function (): Promise<void> {
+  if (playbackManager?.currentItem?.Type === 'Episode') {
+    try {
+      let token = remote.auth.currentUserToken;
+      let config: AxiosRequestConfig = {
+        headers: { Authorization: `MediaBrowser Token="${token}"` }
+      };
+      const introResponse = await remote.axios.instance.get(
+        `/Episode/${playbackManager?.currentItem?.Id}/IntroTimestamps`,
+        config
+      );
+
+      intro = introResponse.data;
+    } catch (e) {}
+  }
+};
+// INTRO SKIPPER PATCH END
 
 const hls = Hls.isSupported()
   ? new Hls({
