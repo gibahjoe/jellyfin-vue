@@ -31,18 +31,9 @@
 import { computed, ref, watch } from 'vue';
 import { playbackManagerStore } from '@/store';
 import { PlaybackStatus } from '@/store/playbackManager';
+import { IntroSkipperResponse } from 'types/global/plugins';
 
 const playbackManager = playbackManagerStore();
-
-interface IntroSkipperResponse {
-  EpisodeId: string;
-  Valid: boolean;
-  IntroStart: number;
-  IntroEnd: number;
-  ShowSkipPromptAt: number;
-  HideSkipPromptAt: number;
-}
-
 const btn = ref<HTMLElement | undefined>(undefined);
 
 // props

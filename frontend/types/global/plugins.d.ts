@@ -38,6 +38,16 @@ declare module 'vue-i18n' {
   export interface DefineLocaleMessage extends messages {}
 }
 
+export interface IntroSkipperResponse {
+  EpisodeId: string;
+  Valid: boolean;
+  IntroStart: number;
+  IntroEnd: number;
+  ShowSkipPromptAt: number;
+  HideSkipPromptAt: number;
+}
+
+
 /**
  * This is important: https://stackoverflow.com/a/64189046
  * https://www.typescriptlang.org/docs/handbook/modules.html

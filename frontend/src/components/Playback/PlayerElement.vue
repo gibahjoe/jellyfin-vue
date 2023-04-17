@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch, nextTick, onMounted, onUnmounted } from 'vue';
+import { computed, watch, nextTick } from 'vue';
 import { isNil } from 'lodash-es';
 import { useI18n } from 'vue-i18n';
 import Hls, { ErrorData } from 'hls.js';
@@ -41,6 +41,7 @@ import {
   mediaElementRef
 } from '@/store';
 import { getImageInfo } from '@/utils/images';
+import { IntroSkipperResponse } from 'types/global/plugins';
 /**
  * Playback won't work in development until https://github.com/vuejs/core/pull/7593 is fixed
  */
@@ -51,22 +52,6 @@ const remote = useRemote();
 const { t } = useI18n();
 
 // INTRO SKIPPER PATCH
-interface IntroSkipperResponse {
-  EpisodeId: string;
-  Valid: boolean;
-  IntroStart: number;
-  IntroEnd: number;
-  ShowSkipPromptAt: number;
-  HideSkipPromptAt: number;
-}
-
-onMounted(() => {
-  console.log('PlayerElement Mounted');
-});
-onUnmounted(() => {
-  console.log('PlayerElement UNMounted');
-});
-
 let intro = null as IntroSkipperResponse | null;
 
 watch(
